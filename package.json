@@ -1,0 +1,26 @@
+{
+  "name": "messenger-chat-api",
+  "version": "1.0.0",
+  "keywords": [
+    "messenger",
+    "chat",
+    "api"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^3.0.0",
+    "cheerio": "^0.22.0",
+    "https-proxy-agent": "^7.0.2",
+    "mqtt": "^3.0.0",
+    "npmlog": "^1.2.0",
+    "request": "^2.53.0",
+    "websocket-stream": "^5.5.0"
+  },
+  "devDependencies": {
+    "@types/bluebird": "^3.5.39",
+    "@types/cheerio": "^0.22.32",
+    "@types/node": "^20.6.2",
+    "@types/npmlog": "^4.1.4",
+    "@types/request": "^2.48.8"
+  }
+}

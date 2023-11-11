@@ -1,0 +1,24 @@
+import { ApiOptions } from "./utils/setOptions";
+import { LoginData } from "./Interface";
+export default function (loginData: LoginData, options: ApiOptions): Promise<{
+    ctx: import("./Interface").Ctx;
+    api: import("./Interface").Api;
+    functions: import("./Interface").DefaultFuncs;
+    setOptions(_options: ApiOptions): ApiOptions;
+    stopListening(): void;
+    addListener(eventName: string | symbol, listener: (...args: any[]) => void): any;
+    on(eventName: string | symbol, listener: (...args: any[]) => void): any;
+    once(eventName: string | symbol, listener: (...args: any[]) => void): any;
+    removeListener(eventName: string | symbol, listener: (...args: any[]) => void): any;
+    off(eventName: string | symbol, listener: (...args: any[]) => void): any;
+    removeAllListeners(event?: string | symbol): any;
+    setMaxListeners(n: number): any;
+    getMaxListeners(): number;
+    listeners(eventName: string | symbol): Function[];
+    rawListeners(eventName: string | symbol): Function[];
+    emit(eventName: string | symbol, ...args: any[]): boolean;
+    listenerCount(eventName: string | symbol, listener?: Function): number;
+    prependListener(eventName: string | symbol, listener: (...args: any[]) => void): any;
+    prependOnceListener(eventName: string | symbol, listener: (...args: any[]) => void): any;
+    eventNames(): (string | symbol)[];
+}>;
