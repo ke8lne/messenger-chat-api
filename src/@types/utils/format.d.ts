@@ -7,7 +7,7 @@ export declare function formatPostReaction(data: Record<string, any>): {
     viewer_feedback_reaction_info: any;
     supported_reactions: any;
     top_reactions: any;
-    reaction_count: any;
+    reaction_count: number;
 };
 export declare function formatMessage(threadID: string, data: Record<string, any>): {
     type: string;

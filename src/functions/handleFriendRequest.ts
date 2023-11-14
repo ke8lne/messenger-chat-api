@@ -6,6 +6,9 @@ import Log from "npmlog";
 
 export default function (funcs: DefaultFuncs, api: Api, ctx: Ctx, options: ApiOptions) {
   return async function handleFriendRequest(userID: string, accept: boolean) {
+    /**
+     * 
+     */
     if (getType(accept) !== "Boolean") throw { error: "Please pass a boolean as a second argument." };
     return await funcs
       .post("https://www.facebook.com/requests/friends/ajax/", ctx.jar, {

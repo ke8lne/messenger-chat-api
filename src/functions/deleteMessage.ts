@@ -5,7 +5,11 @@ import getType from "../utils/getType";
 import Log from "npmlog";
 
 export default function (defaultFuncs: DefaultFuncs, api: Api, ctx: Ctx, options: ApiOptions) {
-  return async function deleteMessage(messageOrMessages: string | string[]) {
+  /**
+   * Takes a messageID or an array of messageIDs and deletes the corresponding message.
+   * @param messageOrMessages Message IDs to delete.
+   */
+  return async function deleteMessage(messageOrMessages: string | string[]): Promise<boolean> {
     if (getType(messageOrMessages) !== "Array") messageOrMessages = [messageOrMessages] as string[];
     const form = { client: "mercury" };
     for (var i = 0; i < messageOrMessages.length; i++)
@@ -14,7 +18,7 @@ export default function (defaultFuncs: DefaultFuncs, api: Api, ctx: Ctx, options
       .then(parseAndCheckLogin(ctx, defaultFuncs))
       .then(resData => {
         if (resData.error) throw resData;
-        return resData;
+        return resData["payload"] == null;
       })
       .catch(err => {
         Log.error("deleteMessage", err);

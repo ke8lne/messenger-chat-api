@@ -5,8 +5,24 @@ import { ApiOptions } from "../utils/setOptions";
 import getType from "../utils/getType";
 import Log from "npmlog";
 
+export enum PostReaction {
+  Unlike = 0,
+  Like,
+  Heart,
+  Wow,
+  Haha,
+  Sad = 7,
+  Angry,
+  Love = 16
+}
+
 export default function (funcs: DefaultFuncs, api: Api, ctx: Ctx, options: ApiOptions) {
-  return async function setPostReaction(postID: string, type: string | number) {
+  /**
+   * Sends a reaction to a user's post.
+   * @param postID Reaction ID to publish. See <PostReaction>
+   * @param type Reaction type or Reaction ID to publish with the reaction id if type. See <PostReactionType>
+   */
+  return async function setPostReaction(postID: PostReaction, type: (keyof typeof PostReaction) | PostReaction) {
     const map = {
       unlike: 0,
       like: 1,

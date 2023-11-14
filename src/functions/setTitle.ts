@@ -7,6 +7,11 @@ import { ApiOptions } from "../utils/setOptions";
 import Log from "npmlog";
 
 export default function (funcs: DefaultFuncs, api: Api, ctx: Ctx, options: ApiOptions) {
+  /**
+   * Sets the title of the group chat.
+   * @param newTitle Value to set to the thread.
+   * @param threadID Group chat to modify.
+   */
   return async function setTitle(newTitle: string, threadID: string) {
     const messageAndOTID = generateOfflineThreadingID(),
       form = {
@@ -46,7 +51,7 @@ export default function (funcs: DefaultFuncs, api: Api, ctx: Ctx, options: ApiOp
         if (res.error && res.error === 1545003)
           throw { error: "Cannot set title of single-user chat." };
         if (res.error) throw res;
-        return res;
+        return res["payload"] == null;
       })
       .catch(err => {
         Log.error("setTitle", err);

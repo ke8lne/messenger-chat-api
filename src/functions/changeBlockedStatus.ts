@@ -6,17 +6,18 @@ import { Api, Ctx, DefaultFuncs } from "../Interface";
 
 export default function (defaultFuncs: DefaultFuncs, api: Api, ctx: Ctx, options: ApiOptions) {
   /**
+   * Prevents a user from privately contacting you. (Messages in a group chat will still be seen by both parties).
    * @param userID User ID
    * @param block Blocks the user if true
    */
-  return async function changeBlockedStatus(userID: string, block: boolean) {
+  return async function changeBlockedStatus(userID: string, block: boolean): Promise<boolean> {
     if (block)
       return await defaultFuncs.post(`https://www.facebook.com/nfx/block_messages/?thread_fbid=${userID}&location=www_chat_head`, ctx.jar, undefined, options)
         .then(saveCookies(ctx.jar))
         .then(parseAndCheckLogin(ctx, defaultFuncs))
-        .then(resData => {
+        .then(async resData => {
           if (resData.error) throw resData;
-          defaultFuncs.post("https://www.facebook.com" + /action="(.+?)"+?/
+          return await defaultFuncs.post("https://www.facebook.com" + /action="(.+?)"+?/
             .exec(resData.jsmods.markup[0][1].__html)[1]
             .replace(/&amp;/g, "&"), ctx.jar, undefined, options
           )
@@ -24,7 +25,7 @@ export default function (defaultFuncs: DefaultFuncs, api: Api, ctx: Ctx, options
             .then(parseAndCheckLogin(ctx, defaultFuncs))
             .then(_resData => {
               if (_resData.error) throw _resData;
-              return resData;
+              return resData["payload"] == null;
             });
         })
         .catch(err => {
@@ -38,7 +39,7 @@ export default function (defaultFuncs: DefaultFuncs, api: Api, ctx: Ctx, options
         .then(parseAndCheckLogin(ctx, defaultFuncs))
         .then(resData => {
           if (resData.error) throw resData;
-          return resData;
+          return resData["payload"] == null;
         })
         .catch(err => {
           Log.error(__filename, err);

@@ -1,10 +1,14 @@
-import { formatThreadGraphQLResponse } from "../utils/formatThread";
+import { Thread, formatThreadGraphQLResponse } from "../utils/formatThread";
 import parseAndCheckLogin from "../utils/parseCheckAndLogin";
 import { Api, Ctx, DefaultFuncs } from "../Interface";
 import { ApiOptions } from "../utils/setOptions";
 import Log from "npmlog";
 
 export default function (funcs: DefaultFuncs, api: Api, ctx: Ctx, options: ApiOptions) {
+	/**
+	 * Fetches the given threadIDs.
+	 * @param threadID Thread IDs to fetch.
+	 */
 	return async function getThreadInfo(threadID: string[]) {
 		let form = {};
 		threadID.forEach((threadID, i) => form["o" + i] = {
@@ -27,8 +31,8 @@ export default function (funcs: DefaultFuncs, api: Api, ctx: Ctx, options: ApiOp
 					const threadInfo = formatThreadGraphQLResponse(res[i][Object.keys(res[i])[0]].data);
 					threadInfos[threadInfo?.threadID || threadID[threadID.length - 1 - i]] = threadInfo;
 				}
-				if (Object.values(threadInfos).length == 1) return Object.values(threadInfos)[0];
-				else return threadInfos;
+				if (Object.values(threadInfos).length == 1) return Object.values(threadInfos)[0] as Thread;
+				else return Object.values(threadInfos) as Thread[];
 			})
 			.catch(err => {
 				Log.error("getThreadInfoGraphQL", err);

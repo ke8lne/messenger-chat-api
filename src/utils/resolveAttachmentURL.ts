@@ -2,7 +2,7 @@ import { Api, Ctx, DefaultFuncs } from "../Interface";
 import { formatDeltaMessage } from "./format";
 import markDelivery from "./markDelivery";
 
-export default function resolveAttachmentUrl(i: number, v: Record<string, any>, pk: { funcs: DefaultFuncs, api: Api, ctx: Ctx }) {
+export default async function resolveAttachmentUrl(i: number, v: Record<string, any>, pk: { funcs: DefaultFuncs, api: Api, ctx: Ctx }) {
      if (i == v.delta.attachments.length) {
           let _msg = formatDeltaMessage(v);
           if (_msg)
@@ -10,10 +10,10 @@ export default function resolveAttachmentUrl(i: number, v: Record<string, any>, 
                     markDelivery(pk.ctx, pk.api, _msg.threadID, _msg.messageID);
           return !pk.ctx.globalOptions.selfListen && _msg.senderID === pk.ctx.userID ? undefined : _msg;
      }
-     else if (v.delta.attachments[i].mercury.attach_type == "photo")
-          pk.api.resolvePhotoUrl(v.delta.attachments[i].fbid, (err, url) => {
-               if (!err) v.delta.attachments[i].mercury.metadata.url = url;
-               return resolveAttachmentUrl(i + 1, v, pk);
-          });
-     else return resolveAttachmentUrl(i + 1, v, pk);
+     else if (v.delta.attachments[i].mercury.attach_type == "photo") {
+          const url = await pk.api.resolvePhotoUrl(v.delta.attachments[i].fbid);
+          v.delta.attachments[i].mercury.metadata.url = url;
+          return await resolveAttachmentUrl(i + 1, v, pk);
+     }
+     else return await resolveAttachmentUrl(i + 1, v, pk);
 }

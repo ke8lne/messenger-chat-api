@@ -6,6 +6,9 @@ import getFrom from "../utils/getForm";
 import Log from "npmlog"
 
 export default function (funcs: DefaultFuncs, api: Api, ctx: Ctx, options: ApiOptions) {
+  /**
+   * Logs out the current user.
+   */
   return async function logout() {
     return await funcs.post("https://www.facebook.com/bluebar/modern_settings_menu/?help_type=364455653583099&show_contextual_help=1", ctx.jar, { pmid: "0" }, options)
       .then(parseAndCheckLogin(ctx, funcs))
@@ -26,6 +29,7 @@ export default function (funcs: DefaultFuncs, api: Api, ctx: Ctx, options: ApiOp
       .then(() => {
         ctx.loggedIn = false;
         Log.info("logout", "Logged out successfully.");
+        return true;
       })
       .catch(err => {
         Log.error("logout", err);

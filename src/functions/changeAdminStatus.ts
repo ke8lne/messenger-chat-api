@@ -5,7 +5,14 @@ import getType from "../utils/getType";
 import Log from "npmlog";
 
 export default function (defaultFuncs: DefaultFuncs, api: Api, ctx: Ctx, options: ApiOptions) {
-  return async function changeAdminStatus(threadID: string, adminIDs: string | string[], adminStatus: boolean) {
+  /**
+   * Sets the admin status of the user(s) either true as admin and false as not. Current user must be an admin to perform this.
+   * @param threadID Thread to modify.
+   * @param adminIDs Users to modify. Must be in the thread.
+   * @param adminStatus Sets as admin if true.
+   * @returns result
+   */
+  return async function changeAdminStatus(threadID: string, adminIDs: string | string[], adminStatus: boolean): Promise<boolean> {
     if (getType(threadID) !== "String") throw { error: "changeAdminStatus: threadID must be a string" };
     if (getType(adminIDs) === "String") adminIDs = [adminIDs] as string[];
     if (getType(adminIDs) !== "Array") throw { error: "changeAdminStatus: adminIDs must be an array or string" };
@@ -28,7 +35,7 @@ export default function (defaultFuncs: DefaultFuncs, api: Api, ctx: Ctx, options
               throw { error: "Cannot alter admin status: Unknown error.", rawResponse: resData };
           }
         }
-        return resData;
+        return resData["payload"] == null;
       })
       .catch(err => {
         Log.error(__filename, err);

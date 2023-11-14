@@ -7,7 +7,7 @@ export declare const Colors: {
         should_show_icon: string;
         theme_name_with_subtitle: string;
     };
-    "Hot Pink": {
+    HotPink: {
         theme_color: string;
         theme_id: string;
         theme_emoji: any;
@@ -63,7 +63,7 @@ export declare const Colors: {
         should_show_icon: string;
         theme_name_with_subtitle: string;
     };
-    "Default Blue": {
+    DefaultBlue: {
         theme_color: string;
         theme_id: string;
         theme_emoji: any;
@@ -79,7 +79,7 @@ export declare const Colors: {
         should_show_icon: string;
         theme_name_with_subtitle: string;
     };
-    "Teal Blue": {
+    TealBlue: {
         theme_color: string;
         theme_id: string;
         theme_emoji: any;
@@ -87,7 +87,7 @@ export declare const Colors: {
         should_show_icon: string;
         theme_name_with_subtitle: string;
     };
-    "Bright Purple": {
+    BrightPurple: {
         theme_color: string;
         theme_id: string;
         theme_emoji: any;
@@ -159,7 +159,7 @@ export declare const Colors: {
         should_show_icon: string;
         theme_name_with_subtitle: string;
     };
-    "Lavender Purple": {
+    LavenderPurple: {
         theme_color: string;
         theme_id: string;
         theme_emoji: any;
@@ -167,7 +167,7 @@ export declare const Colors: {
         should_show_icon: string;
         theme_name_with_subtitle: string;
     };
-    "Stranger Things": {
+    StrangerThings: {
         theme_color: string;
         theme_id: string;
         theme_emoji: string;
@@ -199,7 +199,7 @@ export declare const Colors: {
         should_show_icon: string;
         theme_name_with_subtitle: string;
     };
-    "Coral Pink": {
+    CoralPink: {
         theme_color: string;
         theme_id: string;
         theme_emoji: any;
@@ -207,7 +207,7 @@ export declare const Colors: {
         should_show_icon: string;
         theme_name_with_subtitle: string;
     };
-    "Aqua Blue": {
+    AquaBlue: {
         theme_color: string;
         theme_id: string;
         theme_emoji: any;
@@ -271,7 +271,7 @@ export declare const Colors: {
         should_show_icon: string;
         theme_name_with_subtitle: string;
     };
-    "Lunar New Year": {
+    LunarNewYear: {
         theme_color: string;
         theme_id: string;
         theme_emoji: string;
@@ -311,7 +311,7 @@ export declare const Colors: {
         should_show_icon: string;
         theme_name_with_subtitle: string;
     };
-    "J Balvin": {
+    JBalvin: {
         theme_color: string;
         theme_id: string;
         theme_emoji: string;

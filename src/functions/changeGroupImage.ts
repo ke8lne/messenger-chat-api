@@ -25,7 +25,12 @@ async function handleUpload(image: Buffer, { defaultFuncs, ctx, options }) {
 }
 
 export default function (defaultFuncs: DefaultFuncs, api: Api, ctx: Ctx, options: ApiOptions) {
-  return async function changeGroupImage(image: Buffer, threadID: string) {
+  /**
+   * Will change the group chat's image to the given image.
+   * @param image Buffer Image
+   * @param threadID Thread to modify.
+   */
+  return async function changeGroupImage(image: Buffer, threadID: string): Promise<boolean> {
     const messageAndOTID = generateOfflineThreadingID(), form = {
       client: "mercury",
       action_type: "ma-type:log-message",
@@ -62,7 +67,7 @@ export default function (defaultFuncs: DefaultFuncs, api: Api, ctx: Ctx, options
       .then(resData => {
         if (resData.error)
           throw resData.error;
-        return resData;
+        return resData["payload"] == null;
       })
       .catch(err => {
         Log.error("changeGroupImage", err);

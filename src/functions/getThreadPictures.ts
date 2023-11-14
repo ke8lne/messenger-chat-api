@@ -4,7 +4,13 @@ import { ApiOptions } from "../utils/setOptions";
 import Log from "npmlog";
 
 export default function (funcs: DefaultFuncs, api: Api, ctx: Ctx, options: ApiOptions) {
-  return async function getThreadPictures(threadID: string, offset: number = 0, limit: number) {
+  /**
+   * Returns pictures sent in the thread.
+   * @param threadID Thread to obtain.
+   * @param offset Start index of picture to retrieve, where 0 is the most recent picture.
+   * @param limit Number of pictures to get, incrementing from the offset index.
+   */
+  return async function getThreadPictures(threadID: string, offset: number = 0, limit: number): Promise<{ uri: string, width: number, height: number }[]> {
     return await funcs.post("https://www.facebook.com/ajax/messaging/attachments/sharedphotos.php", ctx.jar, { thread_id: threadID, offset: offset, limit: limit }, options)
       .then(parseAndCheckLogin(ctx, funcs))
       .then(res => {

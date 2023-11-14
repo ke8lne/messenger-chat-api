@@ -2,6 +2,7 @@ import parseAndCheckLogin from "../utils/parseCheckAndLogin";
 import { Api, Ctx, DefaultFuncs } from "../Interface";
 import { ApiOptions } from "../utils/setOptions";
 import { formatMessage } from "../utils/format";
+import { Message } from "./sendMessage";
 import Log from "npmlog";
 
 function parseDelta(threadID: string, delta: Record<string, any>) {
@@ -12,7 +13,12 @@ function parseDelta(threadID: string, delta: Record<string, any>) {
 
 
 export default function (funcs: DefaultFuncs, api: Api, ctx: Ctx, options: ApiOptions) {
-	return async function getMessage(threadID: string, messageID: string) {
+	/**
+	 * Fetches the messageID from the given thread.
+	 * @param threadID Thread to target.
+	 * @param messageID Message to fetch.
+	 */
+	return async function getMessage(threadID: string, messageID: string): Promise<Message> {
 		if (typeof threadID !== "string" || typeof messageID !== "string") throw ({ error: "getMessage: need threadID and messageID" });
 		return await funcs
 			.post("https://www.facebook.com/api/graphqlbatch/", ctx.jar, {

@@ -11,7 +11,7 @@ import Log from "npmlog";
 export default async function parseDelta(funcs: DefaultFuncs, api: Api, ctx: Ctx, options: ApiOptions, v: Record<string, any>) {
      if (v.delta.class == "NewMessage") {
           if (options.pageID && options.pageID != v.queue) return;
-          function resolveAttachmentUrl(i: number) {
+          async function resolveAttachmentUrl(i: number) {
                if (i == v.delta.attachments.length) {
                     let fmtMsg;
                     try {
@@ -31,15 +31,15 @@ export default async function parseDelta(funcs: DefaultFuncs, api: Api, ctx: Ctx
                          : fmtMsg;
                }
                else {
-                    if (v.delta.attachments[i].mercury.attach_type == "photo")
-                         api.resolvePhotoUrl(v.delta.attachments[i].fbid, (err, url: string) => {
-                              if (!err) v.delta.attachments[i].mercury.metadata.url = url;
-                              return resolveAttachmentUrl(i + 1);
-                         });
-                    else return resolveAttachmentUrl(i + 1);
+                    if (v.delta.attachments[i].mercury.attach_type == "photo") {
+                         const res = await api.resolvePhotoUrl(v.delta.attachments[i].fbid);
+                         v.delta.attachments[i].mercury.metadata.url = res;
+                         return await resolveAttachmentUrl(i + 1);
+                    }
+                    else return await resolveAttachmentUrl(i + 1);
                }
           };
-          return resolveAttachmentUrl(0);
+          return await resolveAttachmentUrl(0);
      }
 
      if (v.delta.class == "ClientPayload") {

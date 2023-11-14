@@ -199,7 +199,7 @@ async function parseDelta(funcs: DefaultFuncs, api: Api, ctx: Ctx, emitter: Even
   if (v.delta.class == "NewMessage") {
     if (ctx.globalOptions.pageID && ctx.globalOptions.pageID != v.queue) return;
     try {
-      let _res = resolveAttachmentUrl(0, v, { funcs, api, ctx });
+      let _res = await resolveAttachmentUrl(0, v, { funcs, api, ctx });
       emitter.emit(Events.MessageSend, _res);
     } catch (err) {
       throw {

@@ -229,7 +229,14 @@ async function handleMention(msg: any, form: any) {
 }
 
 export default function (defaultFuncs: DefaultFuncs, api: Api, ctx: Ctx, options: ApiOptions) {
-  return async function sendMessage(msg: Message, threadID: string, replyMessageId?: string, isGroup?: boolean) {
+  /**
+   * Sends the given message to the threadID.
+   * @param {string|Message} msg Can be a text or <Message> object.
+   * @param threadID Thread to publish.
+   * @param replyMessageId Message ID to reply in the thread.
+   * @param isGroup Specifies if the thread is a group or not.
+   */
+  return async function sendMessage(msg: Message, threadID: string, replyMessageId?: string, isGroup?: boolean): Promise<Message> {
     return await new Promise(async (resolve, reject) => {
       var msgType = getType(msg);
       var threadIDType = getType(threadID);
@@ -285,7 +292,7 @@ export default function (defaultFuncs: DefaultFuncs, api: Api, ctx: Ctx, options
       res = await handleMention(msg, form).catch(reject);
       res = await handleAttachment(msg, form, { defaultFuncs, ctx, options }).catch(reject);
       res = await send({ defaultFuncs, ctx, options }, form, threadID, messageAndOTID, isGroup).catch(reject);
-      resolve(res);
+      resolve(res as Message);
     });
   }
 };

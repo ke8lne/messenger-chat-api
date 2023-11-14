@@ -14,13 +14,13 @@ async function handleUpload(image: Buffer, { defaultFuncs, ctx, options }) {
     av: ctx.userID,
     file: image
   };
-  _uploads.push(defaultFuncs.postFormData("https://www.facebook.com/profile/upload/", ctx.jar, form, options)
+  _uploads.push((await defaultFuncs.postFormData("https://www.facebook.com/profile/upload/", ctx.jar, form, options)
     .then(parseAndCheckLogin(ctx, defaultFuncs))
     .then(resData => {
       if (resData.error) throw resData;
       return resData.payload.metadata[0];
     })
-  );
+  ));
   return await Bluebird.all(_uploads)
     .catch(err => {
       Log.error("handleUpload", err);
@@ -29,9 +29,12 @@ async function handleUpload(image: Buffer, { defaultFuncs, ctx, options }) {
 }
 
 export default function (defaultFuncs: DefaultFuncs, api: Api, ctx: Ctx, options: ApiOptions) {
-  return async function changeAvatar(image: Buffer, caption = "", timestamp: number | string = null) {
-    if (!timestamp && getType(caption) === "Number") {
-      timestamp = caption;
+  /**
+   * 
+   */
+  return async function changeAvatar(image: Buffer, caption = "", temporaryTimestamp: number | string = null) {
+    if (!temporaryTimestamp && getType(caption) === "Number") {
+      temporaryTimestamp = caption;
       caption = "";
     }
     if (!isReadableStream(image))
@@ -46,7 +49,7 @@ export default function (defaultFuncs: DefaultFuncs, api: Api, ctx: Ctx, options
         input: {
           caption,
           existing_photo_id: _resUpload[0].payload.fbid,
-          expiration_time: timestamp,
+          expiration_time: temporaryTimestamp,
           profile_id: ctx.userID,
           profile_pic_method: "EXISTING",
           profile_pic_source: "TIMELINE",

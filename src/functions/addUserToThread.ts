@@ -7,7 +7,13 @@ import getType from "../utils/getType";
 import Log from "npmlog";
 
 export default function (defaultFuncs: Record<string, any>, api: Record<string, any>, ctx: Record<string, any>, options: ApiOptions) {
-  return async function addUser(userID: string | string[], threadID: string): Promise<void> {
+  /**
+   * Add user(s) to a thread.
+   * @param userIDs User IDs to add.
+   * @param threadID Group chat where to add the user(s).
+   * @returns Thread ID
+   */
+  return async function addUser(userID: string | string[], threadID: string): Promise<string> {
     if (getType(threadID) !== "Number" && getType(threadID) !== "String")
       throw { error: `ThreadID should be of type Number or String and not ${getType(threadID)}.` };
     if (getType(userID) !== "Array")

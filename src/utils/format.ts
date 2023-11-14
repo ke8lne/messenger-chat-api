@@ -16,7 +16,7 @@ export function formatPostReaction(data: Record<string, any>) {
 		viewer_feedback_reaction_info: data.feedback_react.feedback.viewer_feedback_reaction_info,
 		supported_reactions: data.feedback_react.feedback.supported_reactions,
 		top_reactions: data.feedback_react.feedback.top_reactions.edges,
-		reaction_count: data.feedback_react.feedback.reaction_count
+		reaction_count: data.feedback_react.feedback.reaction_count as number
 	}
 }
 

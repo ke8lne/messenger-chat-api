@@ -6,6 +6,11 @@ import getType from "../utils/getType";
 import Log from "npmlog"
 
 export default function (funcs: DefaultFuncs, api: Api, ctx: Ctx, options: ApiOptions) {
+  /**
+   * Marks the message as delivered If a message is marked as delivered that tells facebook servers that it was recieved.
+   * @param threadID Thread target.
+   * @param messageID Message to modify.
+   */
   return async function markAsDelivered(threadID: string, messageID: string) {
     const form = {};
     form["message_ids[0]"] = messageID;
@@ -15,7 +20,7 @@ export default function (funcs: DefaultFuncs, api: Api, ctx: Ctx, options: ApiOp
       .then(parseAndCheckLogin(ctx, funcs))
       .then(res => {
         if (res.error) throw res;
-        return res
+        return res["payload"] == null;
       })
       .catch(err => {
         Log.error("markAsDelivered", err);

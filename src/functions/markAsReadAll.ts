@@ -5,13 +5,16 @@ import { saveCookies } from "../utils/cookies";
 import Log from "npmlog";
 
 export default function (funcs: DefaultFuncs, api: Api, ctx: Ctx, options: ApiOptions) {
+  /**
+   * Marks all of messages in your inbox as read.
+   */
   return async function markAsReadAll() {
     return await funcs.post("https://www.facebook.com/ajax/mercury/mark_folder_as_read.php", ctx.jar, { folder: 'inbox' }, options)
       .then(saveCookies(ctx.jar))
       .then(parseAndCheckLogin(ctx, funcs))
       .then(res => {
         if (res.error) throw res;
-        return res;
+        return res["payload"] == null;
       })
       .catch(err => {
         Log.error("markAsReadAll", err);

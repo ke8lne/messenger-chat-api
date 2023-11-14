@@ -6,8 +6,9 @@ import Log from "npmlog";
 
 export default function (funcs: DefaultFuncs, api: Api, ctx: Ctx, options: ApiOptions) {
   /**
+   * Mutes a thread for a period of time or permanent.
    * @param threadID Thread ID
-   * @param muteSecond -1=permanent mute, 0=unmute, 60=one minute, 3600=one hour, etc.
+   * @param muteSecond -1=permanent mute | 0=unmute.
    */
   return async function muteThread(threadID: string, muteSeconds: number) {
     return await funcs.post("https://www.facebook.com/ajax/mercury/change_mute_thread.php", ctx.jar, { thread_fbid: threadID, mute_settings: muteSeconds }, options)

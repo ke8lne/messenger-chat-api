@@ -9,7 +9,7 @@ export default function (defaultFuncs: DefaultFuncs, api: Api, ctx: Ctx, options
       * Create a new group chat.
       * @param participantIDs An array containing participant IDs. (Length must be >= 2)
       * @param groupTitle The title of the new group chat.
-      * @returns threadID 
+      * @returns Created threadID. 
       */
      return async function createNewGroup(participantIDs: string[], groupTitle?: string): Promise<string> {
           if (getType(participantIDs) !== "Array") throw { error: "createNewGroup: participantIDs should be an array." };

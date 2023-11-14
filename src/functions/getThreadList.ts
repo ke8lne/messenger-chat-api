@@ -1,5 +1,5 @@
 import parseAndCheckLogin from "../utils/parseCheckAndLogin";
-import { formatThreadList } from "../utils/formatThread";
+import { Thread, formatThreadList } from "../utils/formatThread";
 import { Api, Ctx, DefaultFuncs } from "../Interface";
 import { ApiOptions } from "../utils/setOptions";
 import getType from "../utils/getType";
@@ -13,6 +13,13 @@ export enum ThreadTags {
 }
 
 export default function (funcs: DefaultFuncs, api: Api, ctx: Ctx, options: ApiOptions) {
+	/**
+	 * Returns information about the user's threads.
+	 * @param limit Limit the number of threads to fetch.
+	 * @param timestamp Request threads before this date. If unspecified, most recent threads will be fetched.
+	 * @param {ThreadTags} tag Describes what thread to fetch. See <ThreadTags>.
+	 * @param unreadTag Specifies the function to fetch only unread threads with the tag.
+	 */
 	return async function getThreadList(limit: number, timestamp: number = null, tag: ThreadTags = ThreadTags.Inbox, unreadTag = false) {
 		if (getType(limit) !== "Number" || !Number.isInteger(limit) || limit <= 0)
 			throw { error: "getThreadList: limit must be a positive integer" };
@@ -41,7 +48,7 @@ export default function (funcs: DefaultFuncs, api: Api, ctx: Ctx, options: ApiOp
 				if (res[res.length - 1].error_results > 0) throw res[0].o0.errors;
 				if (res[res.length - 1].successful_results === 0) throw { error: "getThreadList: there was no successful_results", res };
 				if (timestamp) res[0].o0.data.viewer.message_threads.nodes.shift();
-				return formatThreadList(res[0].o0.data.viewer.message_threads.nodes);
+				return formatThreadList(res[0].o0.data.viewer.message_threads.nodes) as Thread[];
 			})
 			.catch(err => {
 				Log.error("getThreadList", err);

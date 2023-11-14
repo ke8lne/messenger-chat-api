@@ -9,7 +9,7 @@ export default function (defaultFuncs: DefaultFuncs, api: Api, ctx: Ctx, options
    * Given a threadID, or an array of threadIDs, will delete the threads from your account. Note that this does not remove the messages from Facebook's servers - anyone who hasn't deleted the thread can still view all of the messages.
    * @param threadOrThreads The id(s) of the threads you wish to remove from your account.
    */
-  return async function deleteThread(threadOrThreads: string | string[]): Promise<void> {
+  return async function deleteThread(threadOrThreads: string | string[]): Promise<boolean> {
     const form = { client: "mercury" };
     if (getType(threadOrThreads) !== "Array") threadOrThreads = [threadOrThreads] as string[];
     for (var i = 0; i < threadOrThreads.length; i++)
@@ -18,7 +18,7 @@ export default function (defaultFuncs: DefaultFuncs, api: Api, ctx: Ctx, options
       .then(parseAndCheckLogin(ctx, defaultFuncs))
       .then(resData => {
         if (resData.error) throw resData.error;
-        return resData;
+        return resData["payload"] == null;
       })
       .catch(err => {
         Log.error("deleteThread", err);

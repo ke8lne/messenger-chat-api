@@ -5,7 +5,12 @@ import getType from "../utils/getType";
 import Log from "npmlog";
 
 export default function (defaultFuncs: DefaultFuncs, api: Api, ctx: Ctx, options: ApiOptions) {
-  return async function changeArchivedStatus(threadOrThreads: string | string[], archive: boolean) {
+  /**
+   * Given a threadID, or an array of threadIDs, will set the archive status of the threads to archive. Archiving a thread will hide it from the logged-in user's inbox until the next time a message is sent or received.
+   * @param string threadID to modify
+   * @returns result
+   */
+  return async function changeArchivedStatus(threadOrThreads: string | string[], archive: boolean): Promise<boolean> {
     const form = {};
     if (getType(threadOrThreads) === "Array")
       for (var i = 0; i < threadOrThreads.length; i++)
@@ -17,7 +22,7 @@ export default function (defaultFuncs: DefaultFuncs, api: Api, ctx: Ctx, options
       .then(resData => {
         if (resData.error)
           throw resData.error;
-        return resData
+        return resData["payload"] == null;
       })
       .catch(err => {
         Log.error("changeArchivedStatus", err);

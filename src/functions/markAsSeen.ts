@@ -7,6 +7,7 @@ import Log from "npmlog";
 
 export default function (funcs: DefaultFuncs, api: Api, ctx: Ctx, options: ApiOptions) {
   /**
+   * Marks your entire inbox as seen (don't be confused with read!).
    * @param Timestamp Seen timestamp.
    */
   return async function markAsRead(timestamp: number) {

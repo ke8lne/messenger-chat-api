@@ -4,6 +4,10 @@ import { ApiOptions } from "../utils/setOptions";
 import Log from "npmlog";
 
 export default function (funcs: DefaultFuncs, api: Api, ctx: Ctx, options: ApiOptions) {
+  /**
+   * Unfiends a user on the current logged user.
+   * @param userID User to unfiend.
+   */
   return async function unsendMessage(userID: string) {
     const form = {
       uid: userID,
@@ -15,7 +19,7 @@ export default function (funcs: DefaultFuncs, api: Api, ctx: Ctx, options: ApiOp
       .then(parseAndCheckLogin(ctx, funcs))
       .then(res => {
         if (res.error) throw res;
-        return res;
+        return res["payload"] == null;
       })
       .catch(err => {
         Log.error("unfriend", err);

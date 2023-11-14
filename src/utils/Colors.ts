@@ -7,7 +7,7 @@ export const Colors = {
           "should_show_icon": "",
           "theme_name_with_subtitle": "Monochrome"
      },
-     "Hot Pink": {
+     "HotPink": {
           "theme_color": "FFFF5CA1",
           "theme_id": "169463077092846",
           "theme_emoji": null, "gradient": null, "should_show_icon": "1",
@@ -53,7 +53,7 @@ export const Colors = {
           "theme_emoji": null, "gradient": null, "should_show_icon": "1",
           "theme_name_with_subtitle": "Honey"
      },
-     "Default Blue": {
+     "DefaultBlue": {
           "theme_color": "FF0084FF",
           "theme_id": "196241301102133",
           "theme_emoji": null, "gradient": null, "should_show_icon": "1",
@@ -65,13 +65,13 @@ export const Colors = {
           "theme_emoji": null, "gradient": null, "should_show_icon": "1",
           "theme_name_with_subtitle": "Yellow"
      },
-     "Teal Blue": {
+     "TealBlue": {
           "theme_color": "FF44BEC7",
           "theme_id": "1928399724138152",
           "theme_emoji": null, "gradient": null, "should_show_icon": "1",
           "theme_name_with_subtitle": "Teal Blue"
      },
-     "Bright Purple": {
+     "BrightPurple": {
           "theme_color": "FF7646FF",
           "theme_id": "234137870477637",
           "theme_emoji": null, "gradient": null, "should_show_icon": "1",
@@ -134,13 +134,13 @@ export const Colors = {
           "should_show_icon": "1",
           "theme_name_with_subtitle": "Citrus"
      },
-     "Lavender Purple": {
+     "LavenderPurple": {
           "theme_color": "FFD696BB",
           "theme_id": "2058653964378557",
           "theme_emoji": null, "gradient": null, "should_show_icon": "1",
           "theme_name_with_subtitle": "Lavender Purple"
      },
-     "Stranger Things": {
+     "StrangerThings": {
           "theme_color": "FFC03232",
           "theme_id": "1059859811490132",
           "theme_emoji": "🙃",
@@ -166,13 +166,13 @@ export const Colors = {
           "theme_emoji": null, "gradient": null, "should_show_icon": "1",
           "theme_name_with_subtitle": "Orange"
      },
-     "Coral Pink": {
+     "CoralPink": {
           "theme_color": "FFE68585",
           "theme_id": "980963458735625",
           "theme_emoji": null, "gradient": null, "should_show_icon": "1",
           "theme_name_with_subtitle": "Coral Pink"
      },
-     "Aqua Blue": {
+     "AquaBlue": {
           "theme_color": "FF20CEF5",
           "theme_id": "2442142322678320",
           "theme_emoji": null, "gradient": null, "should_show_icon": "1",
@@ -232,7 +232,7 @@ export const Colors = {
           "should_show_icon": "",
           "theme_name_with_subtitle": "Sky"
      },
-     "Lunar New Year": {
+     "LunarNewYear": {
           "theme_color": "FFE84B28",
           "theme_id": "357833546030778",
           "theme_emoji": "🐯",
@@ -272,7 +272,7 @@ export const Colors = {
           "should_show_icon": "",
           "theme_name_with_subtitle": "Astrology"
      },
-     "J Balvin": {
+     "JBalvin": {
           "theme_color": "FF0171FF",
           "theme_id": "184305226956268",
           "theme_emoji": "☁️",

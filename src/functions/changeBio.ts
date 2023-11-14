@@ -5,6 +5,9 @@ import getType from "../utils/getType";
 import Log from "npmlog";
 
 export default function (defaultFuncs: DefaultFuncs, api: Api, ctx: Ctx, options: ApiOptions) {
+  /**
+   * 
+   */
   return async function changeBio(bio?: string, publish: boolean = false) {
     if (getType(bio) != "String") {
       bio = "";

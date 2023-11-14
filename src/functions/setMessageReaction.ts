@@ -4,7 +4,12 @@ import { ApiOptions } from "../utils/setOptions";
 import Log from "npmlog";
 
 export default function (funcs: DefaultFuncs, api: Api, ctx: Ctx, options: ApiOptions) {
-  return async function setMessageReaction(reaction: string, messageID: string, forceCustomReaction?: boolean) {
+  /**
+   * Sets reaction on message.
+   * @param reaction A string containing either an emoji, an emoji in unicode, or an emoji shortcut. The string can be undefined in order to remove a reaction.
+   * @param messageID Message to modify.
+   */
+  return async function setMessageReaction(reaction: string, messageID: string) {
     const vars = {
       data: {
         client_mutation_id: ctx.clientMutationId++,
@@ -14,7 +19,6 @@ export default function (funcs: DefaultFuncs, api: Api, ctx: Ctx, options: ApiOp
         reaction: reaction
       }
     }, qs = { doc_id: "1491398900900362", variables: JSON.stringify(vars), dpr: 1 };
-
     return await funcs.postFormData("https://www.facebook.com/webgraphql/mutation/", ctx.jar, {}, qs)
       .then(parseAndCheckLogin(ctx.jar, funcs))
       .then(res => {

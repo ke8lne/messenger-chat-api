@@ -26,4 +26,4 @@ export declare enum EmojiSize {
     Medium = "medium",
     Large = "large"
 }
-export default function (defaultFuncs: DefaultFuncs, api: Api, ctx: Ctx, options: ApiOptions): (msg: Message, threadID: string, replyMessageId?: string, isGroup?: boolean) => Promise<unknown>;
+export default function (defaultFuncs: DefaultFuncs, api: Api, ctx: Ctx, options: ApiOptions): (msg: Message, threadID: string, replyMessageId?: string, isGroup?: boolean) => Promise<Message>;

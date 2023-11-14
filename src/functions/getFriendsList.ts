@@ -69,7 +69,11 @@ function formatData(obj: Record<string, any>) {
 }
 
 export default function (funcs: DefaultFuncs, api: Api, ctx: Ctx, options: ApiOptions) {
-  return async function getFriendsList() {
+  /**
+   * Returns an array of objects with user info currenly logged user's friend list.
+   * @returns {User}
+   */
+  return async function getFriendsList(): Promise<User[]> {
     return await funcs.postFormData("https://www.facebook.com/chat/user_info_all", ctx.jar, {}, { viewer: ctx.userID }, options)
       .then(parseAndCheckLogin(ctx, funcs))
       .then(res => {
